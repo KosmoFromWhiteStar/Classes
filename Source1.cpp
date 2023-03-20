@@ -19,9 +19,9 @@ void letter_writer(std::string* letter)
 	std::stringstream ss;
 	std::string temp = "";
 
-	ss << std::put_time(now_time, "%d.%m.%Y %H:%M:%S)");
+	ss << std::put_time(now_time, "%d.%m.%Y %H:%M:%S");
 	ss >> temp;
-	*letter += temp;
+	*letter += temp + ' ';
 	ss >> temp;
 	*letter += temp;
 	*letter += '\n';
@@ -167,10 +167,10 @@ public:
 			std::string sms = "";
 			letter_writer(&sms);
 			smska << sms;
-			/*do
-			{
-				std::cin >> sms;
-			} while (true);*/
+
+			std::getline(std::cin, sms); // ZAEBAL NE RABOTAT
+
+			smska << sms << std::endl;
 			smska << "===================" << std::endl;
 			smska.close();
 		}
