@@ -6,6 +6,10 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <limits>
+#include <iosfwd>
+
+
 
 #define LINE std::cout << "--------------" << std::endl;
 #pragma warning(disable: 4996)
@@ -13,7 +17,7 @@
 void letter_writer(std::string* letter)
 {
 	std::time_t ti = std::time(nullptr);
-	std::tm* now_time = std::localtime(&ti);;
+	std::tm* now_time = std::localtime(&ti);
 
 
 	std::stringstream ss;
@@ -40,8 +44,9 @@ bool compare(std::string inP_word, std::string command)
 	return true;
 }
 
-struct phonebook
+class phonebook
 {
+public:
 	std::string num = "";
 	std::string name = "";
 
@@ -162,13 +167,14 @@ public:
 
 			path += peoples[find_num].name ;
 			path += ".txt";
-			std::cout << path;
 			std::ofstream smska(path, std::ios::app);
 			std::string sms = "";
 			letter_writer(&sms);
 			smska << sms;
 
-			std::getline(std::cin, sms); // ZAEBAL NE RABOTAT
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.clear();
+			std::getline(std::cin, sms);
 
 			smska << sms << std::endl;
 			smska << "===================" << std::endl;
@@ -205,8 +211,8 @@ int main()
 		if (compare(comm, "add"))samsa.add();
 		else if (compare(comm, "call"))samsa.call();     // absolutly worked. DONT TOUCH
 		else if (compare(comm, "list"))samsa.list_num(); // absolutly worked. DONT TOUCH
-		else if (compare(comm, "sms"))samsa.sms();		 // DONT worked. Error when i close.
-		else if (compare(comm, "exit"))samsa.exit();
+		else if (compare(comm, "sms"))samsa.sms();		 // Don't worked write sms
+		else if (compare(comm, "exit"))samsa.exit();	 // worked
 		else std::cout << "Invalid command." << std::endl;
 
 	} while(samsa.end());
