@@ -19,8 +19,9 @@ bool compare(std::string inP_word, std::string command)
 	return true;
 }
 
-struct Track
+class Track
 {
+public:
 	std::string name = "";
 	std::string artist = "";
 	std::time_t time = std::time(nullptr);
