@@ -1,5 +1,11 @@
 #include <iostream>
 
+
+#define X coordinate[1]
+#define Y coordinate[0]
+#define YSIZE monitor.size_mon[0]
+#define XSIZE monitor.size_mon[1]
+
 class Monitor
 {
 public:
@@ -25,11 +31,6 @@ class Window
 	int size[2] = { 50, 80 };
 	Monitor monitor;
 
-#define X coordinate[1]
-#define Y coordinate[0]
-#define YSIZE monitor.size_mon[0]
-#define XSIZE monitor.size_mon[1]
-
 public:
 	void move()
 	{
@@ -49,26 +50,31 @@ public:
 	}
 	void resize()
 	{
-	
 		int nw_size[2];
-	
-		x:
-		std::cout << "resize window: " << std::endl;
-		std::cin >> nw_size[0] >> nw_size[1];
-		if (nw_size[0] < 0 || nw_size[1] < 0)
+		bool tru_size = false;
+		do
 		{
-			std::cout << "Uncorrect window size\n";
-			goto x;
-		}
-		size[0] = nw_size[0];
-		size[1] = nw_size[1];
-		
-		if (size[0] > monitor.size_mon[0] || size[1] > monitor.size_mon[1])
-		{
-			std::cerr << "Size bigger than window. Err. try again\n";
-			goto x;
-		}
-		std::cout << "length: " << coordinate[0] << "width: " << coordinate[1] << std::endl;
+			tru_size = false;
+			std::cout << "resize window: " << std::endl;
+			std::cin >> nw_size[0] >> nw_size[1];
+			if (nw_size[0] < 0 || nw_size[1] < 0)
+			{
+				std::cout << "Uncorrect window size\n";
+				tru_size = true;
+			}
+			else
+			{
+				size[0] = nw_size[0];
+				size[1] = nw_size[1];
+			}
+
+			if (size[0] > monitor.size_mon[0] || size[1] > monitor.size_mon[1])
+			{
+				std::cerr << "Size bigger than window. Err. try again\n";
+				tru_size = true;
+			}
+		} while (tru_size);
+		std::cout << "length: " << size[0] << " width: " << size[1] << std::endl;
 	}
 	void display()
 	{
