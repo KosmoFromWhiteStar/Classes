@@ -34,16 +34,21 @@ class Window
 public:
 	void move()
 	{
-		x:
-		std::cout << "move window: " << std::endl;
 		int pos_new[2];
-		std::cin >> pos_new[0] >> pos_new[1];
-		if ((coordinate[0] + pos_new[0] < 0 || coordinate[1] + pos_new[1] < 0)
-			|| (coordinate[0] + pos_new[0] + size[0] > YSIZE || coordinate[1] + pos_new[1]+ size[1] > XSIZE))
+		bool tru_size = false;
+		do
 		{
-			std::cout << "Uncorrect window size\n";
-			goto x;
-		}
+			tru_size = false;
+			std::cout << "move window: " << std::endl;
+			std::cin >> pos_new[0] >> pos_new[1];
+			if ((coordinate[0] + pos_new[0] < 0 || coordinate[1] + pos_new[1] < 0)
+			 || (coordinate[0] + pos_new[0] + size[0] > YSIZE || coordinate[1] + pos_new[1]+ size[1] > XSIZE))
+			{
+				std::cout << "Uncorrect window size\n";
+				tru_size = true;
+			}
+		} while (tru_size);
+
 		coordinate[0] += pos_new[0];
 		coordinate[1] += pos_new[1];
 		std::cout << "x: " << coordinate[0] << " y: " << coordinate[1] << std::endl;
